@@ -1,18 +1,27 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import SearchBar from "../Components/SearchBar";
 import ShowCard from "../Components/ShowCard";
 import { fetchshow } from "../api";
 import { Show } from "../models/show";
-function ShowListPage() {
-  const [shows, setShows] = useState<Show[]>([]);
-  const [query, setQuery] = useState("");
+import { ShowloadedAction, showQueryChange } from "../actions/showactions";
+import { connect } from "react-redux";
+import {State} from "../store";
+import { showQuerySelector, showSelector } from "../selectors/Show";
+
+type showlistprops={
+  showloaded:(shows:Show[])=>void;
+  shows:Show[],
+  query:string,
+  showquerychange:(query:string)=>void
+}
+const ShowListPage:FC<showlistprops>= ({showloaded,query,shows,showquerychange})=>{
   useEffect(()=>{
-    fetchshow(query).then((res:any)=>setShows(res))
+    fetchshow(query).then((res:any)=>showloaded(res))
   },[query])
   console.log(shows);
   return (
     <div className="mt-2">
-      <SearchBar value={query} onChange={(e)=>{setQuery(e.target.value)}} />
+      <SearchBar value={query} onChange={(e)=>{showquerychange(e.target.value)}} />
       <div className="flex flex-wrap justify-center">
         {
           shows && shows.map((res:any)=>{
@@ -23,4 +32,13 @@ function ShowListPage() {
     </div>
   );
 }
-export default ShowListPage;
+const mapDispatchToProps={
+  showloaded:ShowloadedAction,
+  showquerychange:showQueryChange,
+}
+
+const mapStateToProps=(state:State)=>{
+  return {query:showQuerySelector(state),shows:showSelector(state)}
+  
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ShowListPage);
