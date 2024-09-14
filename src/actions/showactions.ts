@@ -2,6 +2,7 @@ import { ActionCreator } from "redux";
 import { Show } from "../models/show";
 export const SHOW_LOADED = "SHOWS_LOADED";
 export const ShowloadedAction: ActionCreator<{ type: string; payload:Show[]}> = (shows: Show[]) => {
+  // console.log(shows);
   return {
     type: SHOW_LOADED,
     payload: shows,
@@ -16,6 +17,7 @@ export const showQueryChange:ActionCreator<{type:string,payload:string}>=(query)
     payload:query,
   }
 }
+
 
 export const SHOWS_ID_CHANGE="SHOWS_ID_CHANGE";
 export const showIdChange:ActionCreator<{type:string,payload:number}>=(id)=>{

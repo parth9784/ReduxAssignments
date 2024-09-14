@@ -10,6 +10,6 @@ export const fetchshow = (keyword: string) => {
 
 export const fetchshowbyid=(id:number)=>{
   return axios.get(`https://api.tvmaze.com/shows/${id}`).then((res)=>{
-    return res.data;
+    return(res.data);
   })
 }

@@ -4,19 +4,20 @@ import ShowCard from "../Components/ShowCard";
 import { fetchshow } from "../api";
 import { Show } from "../models/show";
 import { ShowloadedAction, showQueryChange } from "../actions/showactions";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import {State} from "../store";
-import { showQuerySelector, showSelector } from "../selectors/Show";
+import { showLoadingSelector, showQuerySelector, showSelector } from "../selectors/Show";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
-type showlistprops={
-  shows:Show[],
-  query:string,
-  showquerychange:(query:string)=>void
-}
-const ShowListPage:FC<showlistprops>= ({query,shows,showquerychange})=>{
+type showlistprops={}&ReduxProps;
+const ShowListPage:FC<showlistprops>= ({query,shows,showquerychange,loading})=>{
   return (
     <div className="mt-2">
+      <div className="flex">
       <SearchBar value={query} onChange={(e)=>{showquerychange(e.target.value)}} />
+        {loading&& <LoadingSpinner/>}
+      </div>
+      
       <div className="flex flex-wrap justify-center">
         {
           shows && shows.map((res:any)=>{
@@ -32,7 +33,9 @@ const mapDispatchToProps={
 }
 
 const mapStateToProps=(state:State)=>{
-  return {query:showQuerySelector(state),shows:showSelector(state)}
-  
+  return {query:showQuerySelector(state),shows:showSelector(state),loading:showLoadingSelector(state)}
+
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ShowListPage);
+const connector=connect(mapStateToProps,mapDispatchToProps)
+type ReduxProps=ConnectedProps<typeof connector>;
+export default connector(ShowListPage);
