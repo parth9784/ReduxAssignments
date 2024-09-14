@@ -23,7 +23,14 @@ function Showreducer(state = initialState, action: AnyAction): State {
         case "SHOWS_QUERY_CHANGE":
           return produce(state,(draft:any)=>{
             draft.query=action.payload;
-          })    
+          })  
+        // case "SHOWS_ID_CHANGE":
+        //   return produce(state,(draft:any)=>{
+        //     const shows=action.payload as Show[];
+        //     const showSchema= new schema.Entity("shows");
+        //     const normalizedData=normalize(shows,[showSchema]);
+        //     draft.shows={normalizedData.entities.shows};
+        //   })
       default:
         return state;
     }

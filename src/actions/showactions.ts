@@ -15,5 +15,12 @@ export const showQueryChange:ActionCreator<{type:string,payload:string}>=(query)
     type:SHOWS_QUERY_CHANGE,
     payload:query,
   }
+}
 
+export const SHOWS_ID_CHANGE="SHOWS_ID_CHANGE";
+export const showIdChange:ActionCreator<{type:string,payload:number}>=(id)=>{
+  return {
+    type:SHOWS_ID_CHANGE,
+    payload:id,
+  }
 }

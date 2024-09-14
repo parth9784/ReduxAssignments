@@ -6,7 +6,7 @@ import withRouter, { WithRouterProps } from "../hocs/withRouter";
 type ShowDetailPageProps = WithRouterProps;
 
 const ShowDetailPage: FC<WithRouterProps> = ({ params }) => {
-  console.log(params);
+  console.log(params.show_id);
   return (
     <div className="mt-2">
       <h2 className="text-4xl font-semibold tracking-wide">The Witcher</h2>

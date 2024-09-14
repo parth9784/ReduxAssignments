@@ -9,16 +9,11 @@ import {State} from "../store";
 import { showQuerySelector, showSelector } from "../selectors/Show";
 
 type showlistprops={
-  showloaded:(shows:Show[])=>void;
   shows:Show[],
   query:string,
   showquerychange:(query:string)=>void
 }
-const ShowListPage:FC<showlistprops>= ({showloaded,query,shows,showquerychange})=>{
-  useEffect(()=>{
-    fetchshow(query).then((res:any)=>showloaded(res))
-  },[query])
-  console.log(shows);
+const ShowListPage:FC<showlistprops>= ({query,shows,showquerychange})=>{
   return (
     <div className="mt-2">
       <SearchBar value={query} onChange={(e)=>{showquerychange(e.target.value)}} />
@@ -33,7 +28,6 @@ const ShowListPage:FC<showlistprops>= ({showloaded,query,shows,showquerychange})
   );
 }
 const mapDispatchToProps={
-  showloaded:ShowloadedAction,
   showquerychange:showQueryChange,
 }
 
