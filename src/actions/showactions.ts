@@ -2,7 +2,7 @@ import { ActionCreator } from "redux";
 import { Show } from "../models/show";
 export const SHOW_LOADED = "SHOWS_LOADED";
 export const ShowloadedAction: ActionCreator<{ type: string; payload:Show[]}> = (shows: Show[]) => {
-  // console.log(shows);
+  console.log(shows);
   return {
     type: SHOW_LOADED,
     payload: shows,

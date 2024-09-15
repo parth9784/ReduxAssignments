@@ -10,7 +10,6 @@ export const showQuerySelector=createSelector(showStateSelector,(state)=>{
 export const showMapSelector=createSelector(showStateSelector,(state)=>{
     return state.shows;
 })
-
 export const showQueryMapSelector=createSelector(showStateSelector,(state)=>{
     return  state.query_shows;
 })
@@ -24,7 +23,6 @@ export const showSelector = createSelector(
     showQuerySelector,
     showQueryMapSelector,
     (showmap, query, querymap) => {
-      return querymap[query]?.map((showid) => showmap[showid]) || [];
+      return querymap[query]?.map((showid:number) => showmap[showid]) || [];
     }
   );
-  

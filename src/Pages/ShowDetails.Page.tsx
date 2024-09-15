@@ -28,7 +28,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({ params, show,loadshowdata }) 
       <h2 className="text-4xl font-semibold tracking-wide">{show.name}</h2>
       <div className="flex space-x-3 my-2 bg-gray-300 p-2 rounded-sm">
         {show.genres.length!==0 ? (
-          show.genres.map((i) => <GenrePill name={i} key={i} />)
+          show.genres.map((i:any) => <GenrePill name={i} key={i} />)
         ) : (
           <GenrePill name={"Comedy"} />
         )}
@@ -36,7 +36,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({ params, show,loadshowdata }) 
 
       <div className="mt-2 flex">
         <img
-          src={show.image?.original || "https://picsum.photos/200/300"} 
+          src={show.image?.original || "https://picsum.photos/200/300"}
           alt=""
           className="object-cover object-center w-full rounded-t-md h-72"
         />
@@ -94,7 +94,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({ params, show,loadshowdata }) 
 const mapStateToProps = (state: State, ownProps: OwnProps) => {
   const showId = +ownProps.params.show_id;
   return { show: showMapSelector(state)[showId] };
-}; 
+};
 const mapDispatchToProps={
   loadshowdata:showIdChange,
 }

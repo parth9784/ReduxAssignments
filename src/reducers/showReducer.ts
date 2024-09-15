@@ -18,33 +18,31 @@ const initialState: State = {
   show_loading:{}
 };
 
-// Reducer
 function showReducer(state = initialState, action: AnyAction): State {
   return produce(state, (draft) => {
     switch (action.type) {
-      case "SHOWS_LOADED": {
-        const shows = action.payload as Show[];
-        if (shows && shows.length > 0) {
-          const showSchema = new schema.Entity("shows");
-          const normalizedData = normalize(shows, [showSchema]);
-          draft.loading=false; 
-          draft.query_shows[draft.query]=normalizedData.result;
-          draft.shows = { ...draft.shows,...normalizedData.entities.shows };
-        }
-        break;
-      }
+      // case "SHOWS_LOADED": {
+      //   const shows = action.payload as Show[];
+      //   if (shows && shows.length > 0) {
+      //     const showSchema = new schema.Entity("shows");
+      //     const normalizedData = normalize(shows, [showSchema]);
+      //     draft.loading=false;
+      //     draft.query_shows[draft.query]=normalizedData.result;
+      //     draft.shows = { ...draft.shows,...normalizedData.entities.shows };
+      //   }
+      //   break;
+      // }
 
-      case "SHOWS_QUERY_CHANGE": {
-        const query = action.payload as string;
-        if (typeof query === "string") {
-          draft.query = query;
-          draft.loading=true;
-        }
-        break;
-      }
-
+      // case "SHOWS_QUERY_CHANGE": {
+      //   const query = action.payload as string;
+      //   if (typeof query === "string") {
+      //     draft.query = query;
+      //     draft.loading=true;
+      //   }
+      //   break;
+      // }
       case "SHOWS_ID_CHANGE": {
-        const show = action.payload as Show; 
+        const show = action.payload as Show;
         if (show && show.id !== undefined) {
           draft.shows[show.id] = show;
         }

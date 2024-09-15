@@ -1,24 +1,27 @@
-import {applyMiddleware, combineReducers,createStore} from "redux";
-import Showreducer from "./reducers/showReducer";
+import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { fetchshowdata, fetchShows } from "./sagas/shows";
 import { debounce, takeEvery} from "redux-saga/effects";
-const reducer=combineReducers(
-    {
-        shows:Showreducer,
-    }
-);
+import showReducer from "./slices/show";
+// const reducer=combineReducers(
+//     {
+//         shows:Showreducer,
+//     }
+// );
 function* rootSaga(){
     yield  debounce(200,"SHOWS_QUERY_CHANGE",fetchShows);
     yield takeEvery("SHOWS_ID_CHANGE",fetchshowdata);
 }
 const sagaMiddleWare=createSagaMiddleware();
+const store=configureStore({
+    reducer:{
+        shows:showReducer
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(sagaMiddleWare)
+})
 
-const store=createStore(
-    reducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleWare)),
-);
 sagaMiddleWare.run(rootSaga);
-export type State=ReturnType<typeof reducer>;
+export type State=ReturnType<typeof store.getState>;
 export default store;
